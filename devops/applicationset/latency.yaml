@@ -7,25 +7,25 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-    - matrix:
+    - merge:
         generators:
-        - git:
-            repoURL: 'https://totvstfs.visualstudio.com/TOTVSApps-POC-Multicluster/_git/totvsapps-latency'
-            revision: HEAD
-            directories:
-              - path: statements/app/latency/overlay/cloud
-        - merge:
-            mergeKeys: 
-            - server
-            generators:
-            - clusters:
-                selector:
-                  matchLabels:
-                    managed-cluster: 'true'
-            - clusters:
-                selector:
-                  matchLabels:
-                    argo-principal: 'true'
+          - matrix:
+              generators:
+              - clusters:
+                  selector:
+                    matchLabels:
+                      managed-cluster: 'true'
+              - clusters:
+                  selector:
+                    matchLabels:
+                      argo-principal: 'true'
+          - git:
+              repoURL: 'https://totvstfs.visualstudio.com/TOTVSApps-POC-Multicluster/_git/totvsapps-latency'
+              revision: HEAD
+              directories:
+                - path: statements/app/**/overlay/cloud
+        mergeKeys: 
+          - server
   template:
     metadata:
       name: 'latency-{{.name}}'
