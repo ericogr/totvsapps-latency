@@ -9,23 +9,15 @@ spec:
   generators:
   - matrix:
       generators:
-      - git:
-          repoURL: 'https://totvstfs.visualstudio.com/TOTVSApps-POC-Multicluster/_git/totvsapps-latency'
-          revision: HEAD
-          directories:
-          - path: "statements/app/latency/overlay/cloud"
-      - merge:
-          generators:
-          - clusters:
-              selector:
-                matchLabels:
-                  managed-cluster: 'true'
-          - clusters:
-              selector:
-                matchLabels:
-                  argo-principal: 'true'
-          mergeKeys: 
-            - server
+        - git:
+            repoURL: 'https://totvstfs.visualstudio.com/TOTVSApps-POC-Multicluster/_git/totvsapps-latency'
+            revision: HEAD
+            directories:
+            - path: "statements/app/latency/overlay/cloud"
+        - clusters:
+            selector:
+              matchLabels:
+                argo-principal: 'true'
   template:
     metadata:
       name: 'latency-{{.name}}'
@@ -40,7 +32,7 @@ spec:
       sources:
       - repoURL: 'https://totvstfs.visualstudio.com/TOTVSApps-POC-Multicluster/_git/totvsapps-latency'
         targetRevision: HEAD
-        path: '{{.path.path}}'
+        path: '{{.path}}'
       syncPolicy:
         automated:
           prune: true
