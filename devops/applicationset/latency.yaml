@@ -3,6 +3,7 @@ kind: ApplicationSet
 metadata:
   name: latency
   namespace: argocd
+spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
