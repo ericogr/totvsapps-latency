@@ -27,6 +27,10 @@ spec:
         mergeKeys: 
           - server
   template:
+    debug:
+      path: '{{.path}}'
+      path_path: '{{.path.path}}'
+      name: '{{.name}}'
     metadata:
       name: 'latency-{{.name}}'
       labels:
