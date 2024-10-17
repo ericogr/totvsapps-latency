@@ -19,9 +19,9 @@ spec:
             - server
             generators:
             - clusters:
-              selector:
-                matchLabels:
-                  managed-cluster: 'true'
+                selector:
+                  matchLabels:
+                    managed-cluster: 'true'
             - clusters:
                 selector:
                   matchLabels:
