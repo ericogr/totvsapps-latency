@@ -14,14 +14,18 @@ spec:
             revision: HEAD
             directories:
               - path: statements/app/*/overlay/cloud
-        - clusters:
-            selector:
-              matchLabels:
-                managed-cluster: 'true'
-        - clusters:
-            selector:
-              matchLabels:
-                argo-principal: 'true'
+        - merge:
+            mergeKeys: 
+            - server
+            generators:
+            - clusters:
+              selector:
+                matchLabels:
+                  managed-cluster: 'true'
+            - clusters:
+                selector:
+                  matchLabels:
+                    argo-principal: 'true'
   template:
     metadata:
       name: 'latency-{{.name}}'
