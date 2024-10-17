@@ -13,7 +13,7 @@ spec:
             repoURL: 'https://totvstfs.visualstudio.com/TOTVSApps-POC-Multicluster/_git/totvsapps-latency'
             revision: HEAD
             directories:
-              - path: statements/app/*/overlay/cloud
+              - path: statements/app/**/overlay/cloud
         - merge:
             mergeKeys: 
             - server
