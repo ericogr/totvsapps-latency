@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: latency
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  generators:
+  - clusters:
+      selector:
+        matchLabels:
+          managed-cluster: 'true'
+  - clusters:
+      selector:
+        matchLabels:
+          argo-principal: 'true'
+  template:
+    metadata:
+      name: 'latency-{{.name}}'
+      labels:
+        cluster: '{{.name}}'
+        env: poc-multicluster
+    spec:
+      destination:
+        namespace: latency
+        server: '{{.server}}'
+      project: totvsapps
+      sources:
+      - repoURL: 'https://totvstfs.visualstudio.com/TOTVSApps-POC-Multicluster/_git/totvsapps-latency'
+        targetRevision: HEAD
+        path: statements/app/**/overlay/cloud
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
