@@ -13,7 +13,7 @@ spec:
             repoURL: 'https://totvstfs.visualstudio.com/TOTVSApps-POC-Multicluster/_git/totvsapps-latency'
             revision: HEAD
             directories:
-            - path: "statements/app/latency/overlay/cloud"
+            - path: "statements/app/**/overlay/cloud"
         - clusters:
             selector:
               matchLabels:
@@ -32,7 +32,7 @@ spec:
       sources:
       - repoURL: 'https://totvstfs.visualstudio.com/TOTVSApps-POC-Multicluster/_git/totvsapps-latency'
         targetRevision: HEAD
-        path: '{{.path}}'
+        path: '{{.path.path}}'
       syncPolicy:
         automated:
           prune: true
